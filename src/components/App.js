@@ -4,21 +4,29 @@ import WeatherList from './WeatherList';
 import weather from '../api/weather';
 
 class App extends React.Component {
-  state = { forecast: [] };
-  onTermSubmit = async term => {
-    this.setState({ forecast: [] });
+  state = { forecast: [], loading: false };
+  onTermSubmit = async obj => {
+    this.setState({ forecast: [], loading: true });
+
     const result = await weather.get('', {
       params: {
-        q: term
+        q: obj.term,
+        days: obj.days
       }
     });
 
-    this.setState({ forecast: result.data.forecast.forecastday });
+    this.setState({
+      forecast: result.data.forecast.forecastday,
+      loading: false
+    });
   };
   render() {
     return (
       <div>
-        <SearchBar onFormSubmit={this.onTermSubmit} />
+        <SearchBar
+          onFormSubmit={this.onTermSubmit}
+          loading={this.state.loading}
+        />
         <WeatherList forecast={this.state.forecast} />
       </div>
     );
