@@ -4,9 +4,9 @@ import WeatherList from './WeatherList';
 import weather from '../api/weather';
 
 class App extends React.Component {
-  state = { forecast: [], loading: false };
+  state = { location: [], forecast: [], loading: false, days: 5 };
   onTermSubmit = async obj => {
-    this.setState({ forecast: [], loading: true });
+    this.setState({ location: [], forecast: [], loading: true });
 
     const result = await weather.get('', {
       params: {
@@ -17,8 +17,10 @@ class App extends React.Component {
     });
 
     this.setState({
+      location: result.data.location,
       forecast: result.data.forecast.forecastday,
-      loading: false
+      loading: false,
+      days: obj.days
     });
   };
   render() {
@@ -28,7 +30,11 @@ class App extends React.Component {
           onFormSubmit={this.onTermSubmit}
           loading={this.state.loading}
         />
-        <WeatherList forecast={this.state.forecast} />
+        <WeatherList
+          location={this.state.location}
+          forecast={this.state.forecast}
+          days={this.state.days}
+        />
       </div>
     );
   }

@@ -4,8 +4,8 @@ const WeatherItem = ({ forecast }) => {
   const imgUrl = `http:${forecast.condition.icon}`;
 
   return (
-    <div className="item">
-      <div className="ui small image">
+    <div className="card">
+      <div className="image">
         <img src={imgUrl} alt={forecast.condition.text} />
       </div>
       <div className="content">
