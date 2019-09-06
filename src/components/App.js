@@ -10,6 +10,7 @@ class App extends React.Component {
 
     const result = await weather.get('', {
       params: {
+        key: process.env.REACT_APP_API_KEY,
         q: obj.term,
         days: obj.days
       }

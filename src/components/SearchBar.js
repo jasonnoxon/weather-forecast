@@ -14,7 +14,6 @@ class SearchBar extends React.Component {
     this.props.onFormSubmit({ term: this.state.term, days: this.state.days });
   };
   render() {
-    console.log(this.props.loading);
     return (
       <div className="ui segment">
         <form onSubmit={this.onFormSubmit}>
